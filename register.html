@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+      <!--Navbar modified-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-1 fixed-top">
+        <div class="container-fluid">
+          <div class="logo" ><img src="assets/imgs/logo.jpeg" /></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="nav-buttons" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="shop.html">Shop</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="cart.html">Cart</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="account.html">Account</a>
+              </li>
+
+              <li class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-user"></i>
+               </li>
+             
+            </ul>
+            
+          </div>
+        </div>
+      </nav>
+
+
+    <!--Register-->
+    <section class="my-5 py-5">
+        <div class="container text-center mt-3 pt-3">
+            <h2 class="form-weight">Register</h2>  
+        </div>
+        <div >
+            <form  id="register-form">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="register-name" name="name" placeholder ="Name" required/>
+
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="register-email" name="email" placeholder ="Email" required/>
+
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="register-password" name="password" placeholder ="password" required/>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" id="register-confirm-password" name="confirmPassword" placeholder ="Confirm Password" required/>
+                    
+                </div>
+                <div class="form-group">
+                    
+                    <input type="submit" class="btn" id="register-btn"  value="Register"/>
+                    
+                </div>
+                <div class="form-group">
+                    
+                    <a href="#" id="login-url" class="btn">Do you have account ? Login</a>
+                </div>
+            </form>
+        </div>
+
+
+    </section>
