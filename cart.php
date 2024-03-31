@@ -2,7 +2,7 @@
 <?php 
 session_start();
 include('server/connection.php');
-include('server/single_product.php');
+
 
 if(isset($_POST['add_to_cart'])){
 
@@ -97,7 +97,7 @@ else{
     foreach($_SESSION['cart'] as $key =>$value){
       $product = $_SESSION['cart'][$key] ;
       $price = $product['product_price'] ;
-      $quantity=$product['$product_quantity'] ;
+      $quantity=$product['product_quantity'] ;
       $total = $total+($price*$quantity);
     }
     $_SESSION['total']=$total ; 
@@ -228,7 +228,9 @@ else{
 
 
         <div class="checkout-container">
-            <button class="btn checkout-btn">Checkout</button>
+          <form method="POST" action="checkout.php">
+            <input type="submit" class="btn checkout-btn" value="Checkout" name="checkout"/>
+          </form>
         </div>
 
     </section>
