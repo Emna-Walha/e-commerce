@@ -2,6 +2,7 @@
 <?php 
 session_start();
 include('server/connection.php');
+
 if(isset($_POST['add_to_cart'])){
 
   //if user has laready added a product to cart 
@@ -25,6 +26,7 @@ if(isset($_POST['add_to_cart'])){
 
       //PRODUCT HAS ALREADY BEEN ADDED TO CART 
     }
+
 
     else
     {
@@ -55,6 +57,8 @@ if(isset($_POST['add_to_cart'])){
 
 
   }
+  //calculate total
+  calculateTotalCart();
 //remove product from the cart 
 }
  
@@ -80,6 +84,19 @@ else if (isset($_POST['edit_quantity']))
 else{
   header('location : index.php');
 }
+
+
+
+  function calculateTotalCart(){
+    $total =0 ;
+    foreach($_SESSION['cart'] as $key =>$value){
+      $product = $_SESSION['cart'][$key] ;
+      $price = $product['product_price'] ;
+      $quantity=$product['$product_quantity'] ;
+      $total = $total+($price*$quantity);
+    }
+    $_SESSION['total']=$total ; 
+   }
 
 ?>
 
@@ -184,7 +201,7 @@ else{
                 </td>
                 <td>
                     <span>$</span>
-                    <span class="product-price"><?php echo $value['product_price'];?></span>
+                    <span class="product-price"><?php echo $value['product_price']*$value['product_quantity'];?></span>
                 </td>
             </tr>
 
@@ -194,16 +211,12 @@ else{
 
         <div class="cart-total">
             <table>
-                <tr>
-                    <td>Subtotal</td>
-                    <td>$ 1M</td>
-
-                </tr>
+                
                 <tr>
                     <td>
                     Total
                     </td>
-                    <td>$ 1M</td>
+                    <td>$<?php echo $_SESSION['total']; ?></td>
                 </tr>
             </table>
         </div>
