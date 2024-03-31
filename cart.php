@@ -2,6 +2,7 @@
 <?php 
 session_start();
 include('server/connection.php');
+include('server/single_product.php');
 
 if(isset($_POST['add_to_cart'])){
 
@@ -66,6 +67,8 @@ else if (isset($_POST['remove_product']))
  {
   $product_id = $_POST['product_id'];
   unset($_SESSION['cart'][$product_id]);
+  //calculate total
+  calculateTotalCart();
 
   }
 else if (isset($_POST['edit_quantity']))
@@ -79,6 +82,8 @@ else if (isset($_POST['edit_quantity']))
     $product_array['product_quantity']=$product_quantity;
     //return array back to its place 
     $_SESSION['cart'][$product_id]=$product_array ;
+    //calculate total
+  calculateTotalCart();
   }
 
 else{
