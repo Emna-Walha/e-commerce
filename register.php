@@ -1,15 +1,67 @@
-<?php 
-session_start() ;
+<?php
+session_start();
+include("server/connection.php");
+if(isset( $_POST["register"] ))
+  {
+  $name= $_POST['name'];
+  $email= $_POST['email'];
+  $password= $_POST['password'];
+  $confirmPassword= $_POST['confirmPassword'];
+  if($password!==$confirmPassword){
+      header('Location: register.php?error=passwords dont match');
+  }
+    else if(strlen($password)<6){
+      header('Location : register.php?error=password must be at least 6 characters');
+  }
+  //no error
+  else{
+    $stmt1=$conn->prepare("SELECT count(*) FROM users where user_email=?");
+    $stmt1->bind_param('s',$email);
+    $stmt1->execute();
+    $stmt1->bind_result($num_rows) ;
+    $stmt1->store_result();
+    $stmt1->fetch();
+    //if there is user already registred with this email 
+    if ($num_rows != 0){
+      header('Location:register.php?error=user with this email already exists');
+    }
+    //if no user registred with this email before
+    else
+      {
+    //create a new user
+    $stmt=$conn->prepare('INSERT INTO users(user_name,user_email,user_password) 
+            VALUES(?,?,?)');
+      $stmt->bind_param('sss', $name, $email,$password); //dont forget to add md5(password) later
+      
+      if($stmt->execute())
+      {
+        $_SESSION['user_email']=$email ; 
+        $_SESSION['user_name']=$name ; 
+        $_SESSION['logged_in']=true ;
+        header('Location:account.php?register=You registered successfully');
+      }
+      //account could not b created 
+      else{
+        header('Location: register.php?error=could not create an account at the moment');
+      }
+
+    }
+
+  }
+
+  }
+  //else if(isset($_SESSION['logged_in'])){
+    //header('Location: account.php');
+    //exit;
+  //}
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>payment</title>
+    <title>register</title>
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -28,13 +80,13 @@ session_start() ;
                 <a class="nav-link" href="index.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="shop.php">Shop</a>
+                <a class="nav-link" href="shop.cart">Shop</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact.php">Contact Us</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="cart.php">Cart</a>
@@ -55,28 +107,51 @@ session_start() ;
       </nav>
 
 
-<!--payment-->
+    <!--Register-->
+    <section class="my-5 py-5">
+        <div class="container text-center mt-3 pt-3">
+            <h2 class="form-weight">Register</h2>  
+        </div>
+        <div >
+            <form  id="register-form" method="POST" action="register.php">
+              <p style="color:red"><?php if(isset($_GET['error'])){echo $_GET['error'] ;}?></p>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="register-name" name="name" placeholder ="Name" required/>
 
-<section class="my-5 py-5">
-    <div class="container text-center mt-3 pt-3">
-        <h2 class="form-weight">Payment</h2>  
-        
-    </div>
-    <div class="mx-auto container text-center">
-        <p><?php echo $_GET['Order_status'];?></p>
-       <p>Total payment :$<?php echo $_SESSION['total'];?></p>
-       <input class="btn btn-primary" style="background-color:black;border:none" value="Pay Now"type="submit"/>
-    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" id="register-email" name="email" placeholder ="Email" required/>
+
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="register-password" name="password" placeholder ="password" required/>
+                    
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" id="register-confirm-password" name="confirmPassword" placeholder ="Confirm Password" required/>
+                    
+                </div>
+                <div class="form-group">
+                    
+                    <input type="submit" class="btn" id="register-btn"  name="register" value="Register"/>
+                    
+                </div>
+                <div class="form-group">
+                    
+                    <a href="#" id="login-url" class="btn">Do you have account ? Login</a>
+                </div>
+            </form>
+        </div>
 
 
-</section>
+    </section>
 
 
-
-
-
-
-       <!--footer-->
+    <!--footer-->
   <footer class="mt-5 py-5">
     <div class="row container mx-auto pt-5  " style="color:black">
       <div class="col-lg-3 col-md-6 col-sm-12">
@@ -150,3 +225,4 @@ session_start() ;
     <script src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.bundle.min.js" integrity="sha384-40ix5a3dj6/qaC7tfz0Yr+p9fqWLzzAXiwxVLt9dw7UjQzGYw6rWRhFAnRapuQyK" crossorigin="anonymous"></script>
 </body>
 </html>
+

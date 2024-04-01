@@ -1,15 +1,9 @@
-<?php 
-session_start() ;
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>payment</title>
+    <title>account</title>
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -34,7 +28,7 @@ session_start() ;
                 <a class="nav-link" href="#">Blog</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact.php">Contact Us</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="cart.php">Cart</a>
@@ -55,29 +49,51 @@ session_start() ;
       </nav>
 
 
-<!--payment-->
-
-<section class="my-5 py-5">
-    <div class="container text-center mt-3 pt-3">
-        <h2 class="form-weight">Payment</h2>  
-        
-    </div>
-    <div class="mx-auto container text-center">
-        <p><?php echo $_GET['Order_status'];?></p>
-       <p>Total payment :$<?php echo $_SESSION['total'];?></p>
-       <input class="btn btn-primary" style="background-color:black;border:none" value="Pay Now"type="submit"/>
-    </div>
-
-
-</section>
 
 
 
+    <!--Account-->
+    <section class="my-5 py-5">
+       <div class="row container mx-auto">
+        <div class="text-center mt-3 pt-5 col-lg-6 col-md-12 col-12">
+            <h3 class="font-weight-bold">Account info</h3>
+            <div class="account-info">
+                <p>Name <span>EMNA</span></p>
+                <p>Email<span>Emna.walha@insat.ucar.tn</span></p>
+                <p><a href="#" id="orders-btn">Your orders</a></p>
+                <p><a href="#" id="logout-btn">Logout</a></p>
+
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-12">
+            <form id="account-form">
+                <h3>Change Password</h3>
+                <div class="form-group">
+                    <label >Password</label>
+                    <input type="password" class="form-control" id="account-password"  name="password" placeholder="Password" required/>
+                </div>
+                <div class="form-group">
+                    <label >Confirm Password</label>
+                    <input type="password" class="form-control" id="account-password-confirm"  name="confirmPassword" placeholder="Password" required/>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Change Password" class="btn" id="change-pass-btn">
+                </div>
+
+            </form>
+        </div>
+       </div>
+
+    </section>
 
 
 
-       <!--footer-->
-  <footer class="mt-5 py-5">
+
+
+
+
+    <!--footer-->
+<footer class="mt-5 py-5">
     <div class="row container mx-auto pt-5  " style="color:black">
       <div class="col-lg-3 col-md-6 col-sm-12">
         
@@ -140,11 +156,6 @@ session_start() ;
       </div>
     </div>
   </footer>
-
-
-  
-  
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.bundle.min.js" integrity="sha384-40ix5a3dj6/qaC7tfz0Yr+p9fqWLzzAXiwxVLt9dw7UjQzGYw6rWRhFAnRapuQyK" crossorigin="anonymous"></script>
